@@ -1,0 +1,2 @@
+makeRoom Room1
+option Open door
