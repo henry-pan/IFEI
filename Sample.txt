@@ -1,0 +1,28 @@
+[Room 1]
+Welcome to the first room of the game!
+You see a door in front of you.
+What will you do?
+[Commands]
+[Path 2] Open door
+[Path 3] Kick door
+
+
+[Room 2]
+You opened the door like a civilized person.
+Unfortunately, this is as far as we'll go today.
+What will you do?
+[Commands]
+[Path 4] Despair
+
+
+[Room 3]
+With all your might, you plant your foot onto the door, 
+hurling it across the room. Clearly, you've been working out.
+Unfortunately, this is as far as we'll go today.
+What will you do?
+[Commands]
+[Path 4] Despair
+
+
+[Room 4]
+THE END
