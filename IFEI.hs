@@ -29,7 +29,7 @@ getCommand :: [String] -> String
 getCommand [] = ""
 getCommand (c:cs)
     | x == "[Room" = printRoom (c,cs)
-    | x == "[Commands"   = "Insert options function here"
+    | x == "[Path" = "Insert command function here"
     where x = getFirstWord c
 
     
