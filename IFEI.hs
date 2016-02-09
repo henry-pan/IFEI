@@ -25,6 +25,7 @@ getFirstWord x = head (words x)
 
 --Gets lists of all the lines from input file, and does something depending on first word of string.
 --BUG: Can't get it to recurse through the entire list, so for now it just reads the first item in list.
+--Change this to createRooms, which will take the words of the input file and turn it into a list of Rooms.
 getCommand :: [String] -> String
 getCommand [] = ""
 getCommand (c:cs)
