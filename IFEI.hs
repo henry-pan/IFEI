@@ -1,7 +1,5 @@
 -----------------------------------------------------------------------
 -- IFEI - Interactive Fiction Engine and Interpreter
---
--- Authors: Steven Mazliach, Kavya Rammohan, Henry Pan, Thais Aoki.
 -----------------------------------------------------------------------
 import System.IO
 import System.Directory
@@ -16,13 +14,19 @@ main = do
         then do
             handle <- openFile (name ++ ".txt") ReadMode
             contents <- hGetContents handle
-            putStrLn $ "\n" ++ name ++ " loaded.\n"
+            
+            putStrLn $ "\n|=" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=|"
+            putStrLn $ "| " ++ name ++ " loaded. |"
+            putStrLn $ "|=" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=|\n"
+            
             let fileLines = lines contents
             let command = getCommand fileLines
             putStrLn $ command
             hClose handle
         else do
-            putStrLn "\nThe file does not exist.\n"
+            putStrLn "\n============================"
+            putStrLn "| The file does not exist. |"
+            putStrLn "============================\n"
             main
 
 --Int: Room ID. Identifies the room.
