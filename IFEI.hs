@@ -44,7 +44,14 @@ game = do
     --commands are not case sensitive.
     --TODO: Make a function that will handle all possible commands given from paths.
     if (map toLower command) == "exit"
-        then putStrLn "Goodbye."
+        then do
+            putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
+            command <- getLine
+            if (map toLower command) == "exit"
+                then putStrLn "Goodbye."
+                else do
+                    putStrLn "Cancelled."
+                    game
         else do
             putStrLn "Invalid command."
             game
