@@ -15,9 +15,9 @@ main = do
             handle <- openFile (name ++ ".txt") ReadMode
             contents <- hGetContents handle
             
-            putStrLn $ "\n|=" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=|"
+            putStrLn $ "\n==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
             putStrLn $ "| " ++ name ++ " loaded. |"
-            putStrLn $ "|=" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=|\n"
+            putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "==\n"
             
             let fileLines = lines contents
             let command = getCommand fileLines
