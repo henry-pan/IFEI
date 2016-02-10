@@ -3,7 +3,12 @@
 -----------------------------------------------------------------------
 import System.IO
 import System.Directory
+import Data.Char
+import Data.List.Split
 
+-----------------------------------------------------------------------
+-- I/O Aspects
+-----------------------------------------------------------------------
 --Reads from a text file.
 --fileLines is a list of the lines in text file. 
 main = do
@@ -19,16 +24,35 @@ main = do
             putStrLn $ "| " ++ name ++ " loaded. |"
             putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "==\n"
             
-            let fileLines = lines contents
-            let command = getCommand fileLines
-            putStrLn $ command
+            putStrLn $ unwords $ splitFile contents
+            --let fileLines = lines contents
+            --putStrLn $ getCommand fileLines
+            game
             hClose handle
         else do
             putStrLn "\n============================"
             putStrLn "| The file does not exist. |"
             putStrLn "============================\n"
             main
+        
+        
+--Command handling. For now, it will only accept Exit.       
+game = do
+    command <- getLine
 
+    --map toLower command will take the command and make it all lower-case.
+    --commands are not case sensitive.
+    --TODO: Make a function that will handle all possible commands given from paths.
+    if (map toLower command) == "exit"
+        then putStrLn "Goodbye."
+        else do
+            putStrLn "Invalid command."
+            game
+            
+            
+-----------------------------------------------------------------------
+-- Functional Aspects
+-----------------------------------------------------------------------
 --Int: Room ID. Identifies the room.
 --String: Text data associated with the room.
 --[Path]: The list of paths that can be taken from the room.
@@ -51,13 +75,18 @@ We will need to implement some sort of exception handling in case
 the user decides to number rooms out of order.
 
 -}
-
+--startsWith, from Data.List.Split
+--https://hackage.haskell.org/package/split-0.1.1/docs/Data-List-Split.html
+--Take the input file and turn it into a list of Strings (incomplete Rooms).
+splitFile :: String -> [String]
+splitFile = split (startsWith "[Room")
 
 
 --Gets first word from string line.
 getFirstWord :: String -> String
 getFirstWord [] = ""
 getFirstWord x = head (words x)
+
 
 --Gets lists of all the lines from input file, and does something depending on first word of string.
 --BUG: Can't get it to recurse through the entire list, so for now it just reads the first item in list.
@@ -68,14 +97,11 @@ getCommand (c:cs)
     | x == "[Room" = printRoom (c,cs)
     | x == "[Path" = "Insert command function here"
     where x = getFirstWord c
-
-    
---Take the words of the input file and turn it into a list of Rooms.
---createRooms :: [String] -> [Room]
     
     
 --Prints a Room and its associated commands.
 --(Text Data,[Commands]) -> Printed Room
 --Temporary!
+
 printRoom :: (String,[String]) -> String
-printRoom (x,y) = unwords [x] ++ unwords y
+printRoom (x,y) = unlines [x] ++ unwords y
