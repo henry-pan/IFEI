@@ -105,6 +105,10 @@ getCommand (c:cs)
     | x == "[Path" = "Insert command function here"
     where x = getFirstWord c
     
+--createRooms
+--Take divided file and turn it into gameData
+--createRooms :: [String] -> [(Room,[Path])]
+    
     
 --Prints a Room and its associated commands.
 --(Text Data,[Commands]) -> Printed Room
