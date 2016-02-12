@@ -1,0 +1,34 @@
+[Room 1]
+You are in a dense forest.
+As you walk aimlessly, you encounter a fork in the road.
+What will you do?
+[Path to 2] Take left road
+[Path to 3] Take middle road
+[Path to 4] Take right road
+
+
+[Room 2]
+You took the left road.
+After walking for a while, you encounter yet another fork in the road.
+What will you do?
+[Path to 2] Take left road
+[Path to 3] Take middle road
+[Path to 4] Take right road
+
+
+[Room 3]
+You took the middle road.
+After walking for a while, you encounter yet another fork in the road.
+What will you do?
+[Path to 2] Take left road
+[Path to 3] Take middle road
+[Path to 4] Take right road
+
+
+[Room 4]
+You took the right road.
+After walking for a while, you encounter yet another fork in the road.
+What will you do?
+[Path to 2] Take left road
+[Path to 3] Take middle road
+[Path to 4] Take right road
