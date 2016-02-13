@@ -85,6 +85,7 @@ the user decides to number rooms out of order.
 --startsWith, from Data.List.Split
 --https://hackage.haskell.org/package/split-0.1.1/docs/Data-List-Split.html
 --Take the input file and turn it into a list of Strings (incomplete Rooms).
+--Technically could be condensed into one line, but kept separate for clarity.
 splitFile :: String -> [String]
 splitFile = split (startsWith "[Room")
 
@@ -108,11 +109,15 @@ getCommand (c:cs)
 --createRooms
 --Take divided file and turn it into gameData
 --createRooms :: [String] -> [(Room,[Path])]
-    
+
+--processCommand
+--Take input command and check paths for commmand
+--If input and a path match, take that path.
+--processCommand :: String -> [Path] -> ???
+
     
 --Prints a Room and its associated commands.
 --(Text Data,[Commands]) -> Printed Room
 --Temporary!
-
 printRoom :: (String,[String]) -> String
 printRoom (x,y) = unlines [x] ++ unwords y
