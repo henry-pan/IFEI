@@ -6,7 +6,7 @@ Interactive Fiction (Text Adventure) game engine and interpreter, created with H
 With IFEI, users can create, share, and play their own interactive fiction (Text Adventure) games!
 
 
-#Formatting Rules
+##Formatting Rules
 For your text adventure game to run correctly on IFEI, it must follow these rules:
 - Rooms must be indicated with a Room tag `[Room ID]`, where `ID` is the room number.
 - Rooms must be listed in consecutive order, i.e. `[Room 1]` must be followed by `[Room 2]`, if `[Room 2]` exists.
