@@ -60,7 +60,13 @@ game = do
             putStrLn "Invalid command."
             game
             
-            
+
+--processCommand
+--Take input command and check paths for commmand
+--If input and a path match, take that path.
+--Path ID == Room ID == Destination Room
+--processCommand :: String -> [Path] -> ???
+
 -----------------------------------------------------------------------
 -- Functional Aspects
 -----------------------------------------------------------------------
@@ -112,14 +118,6 @@ createRooms (c:cs)
     | x == "[Room" = printRoom (c,cs)
     | x == "[Path" = "Insert command function here"
     where x = getFirstWord c
-    
-
-
---processCommand
---Take input command and check paths for commmand
---If input and a path match, take that path.
---Path ID == Room ID == Destination Room
---processCommand :: String -> [Path] -> ???
 
 
 
