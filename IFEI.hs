@@ -5,6 +5,7 @@ import System.IO
 import System.Directory
 import Data.Char
 import Data.List.Split
+import Data.Bool
 
 -----------------------------------------------------------------------
 -- I/O Aspects
@@ -123,12 +124,12 @@ createRoom p =  (1,(head p),(parsePaths (tail p)))
 
 --take list of strings and extract a list of Paths
 parsePaths :: [String] -> [Path]
-parsePaths [] = [(0," ")]
+parsePaths [] = []
 parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
 
 --extracts description string from path string
 getDesc :: String -> String
-getDesc d = last (splitPath d)
+getDesc d = tail (last (splitPath d))
 
 --extracts path number from path string
 getPathNum :: String -> Int
@@ -136,8 +137,7 @@ getPathNum n = digitToInt (last (head (splitPath n)))
 
 --splits Path up into 2 strings
 splitPath :: String -> [String]
-splitPath = split (startsWith "] ")
-
+splitPath = wordsBy (== ']')
 
 --Helper function.
 --May or may not be needed.
