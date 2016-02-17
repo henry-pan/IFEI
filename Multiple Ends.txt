@@ -1,0 +1,36 @@
+[Room 1]
+You are walking home after a long day of work.
+A man in a mask jumps out from behind a trashcan, waving a knife at you.
+Man: "Hand over your wallet!"
+What will you do?
+[Path-to 2] Ignore him
+[Path-to 3] Give him the wallet
+[Path-to 4] Defend yourself
+
+
+[Room 2]
+You decided to ignore him.
+This angers him and he stabs you.
+It hurt, but you continue to ignore him and walk away.
+THE END
+
+
+[Room 3]
+You handed over your wallet, which contained nothing anyway.
+Man: "Hey, this is empty!"
+How will you respond?
+[Path-to 4] Defend yourself
+[Path-to 5] Not my problem
+
+
+[Room 4]
+You recall your elite close quarters combat training.
+With a single punch, you remove the man's head from his body.
+THE END
+
+
+[Room 5]
+You: "That's not my problem."
+You turn around and walk away, without your empty wallet.
+The man stares at you in silence as you casually distance yourself from him.
+THE END
