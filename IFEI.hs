@@ -5,6 +5,7 @@ import System.IO
 import System.Directory
 import Data.Char
 import Data.List.Split
+import Data.Bool
 
 -----------------------------------------------------------------------
 -- I/O Aspects
@@ -73,11 +74,16 @@ game = do
 --Int: Room ID. Identifies the room.
 --String: Text data associated with the room.
 --[Path]: The list of paths that can be taken from the room.
-data Room = Room Int String [Path]
+--data Room = Room Int String [Path]
 
 --Int: Room ID. This is the room the path will lead to.
 --String: The command that invokes the path.
-data Path = Path Int String
+--data Path = Path Int String
+
+-- Creates a type synonym for gamedata 
+type Gamedata = [Room]
+type Room = (Int,String,[Path])
+type Path = (Int, String)
 
 {-|
 We might want to create some sort of data structure to hold all the
@@ -96,9 +102,42 @@ the user decides to number rooms out of order.
 --https://hackage.haskell.org/package/split-0.1.1/docs/Data-List-Split.html
 --Take the input file and turn it into a list of Strings (incomplete Rooms).
 --Technically could be condensed into one line in the I/O section, but kept separate for clarity.
+
+createGamedata :: String -> Gamedata
+createGamedata cont = (map parseRooms (splitFile cont))
+
+--split file into Rooms (each a string)
 splitFile :: String -> [String]
 splitFile = split (startsWith "[Room")
 
+--creates a Room from a string
+parseRooms :: String -> Room
+parseRooms r = (createRoom (splitRoom r))
+
+--split rooms into strings of description and each path
+splitRoom :: String -> [String]
+splitRoom = split (startsWith "[Path-to")
+
+--creates a Room from a list of Room element strings
+createRoom :: [String] -> Room
+createRoom p =  (1,(head p),(parsePaths (tail p)))
+
+--take list of strings and extract a list of Paths
+parsePaths :: [String] -> [Path]
+parsePaths [] = []
+parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
+
+--extracts description string from path string
+getDesc :: String -> String
+getDesc d = tail (last (splitPath d))
+
+--extracts path number from path string
+getPathNum :: String -> Int
+getPathNum n = digitToInt (last (head (splitPath n)))
+
+--splits Path up into 2 strings
+splitPath :: String -> [String]
+splitPath = wordsBy (== ']')
 
 --Helper function.
 --May or may not be needed.
