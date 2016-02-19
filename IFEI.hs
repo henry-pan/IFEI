@@ -109,7 +109,7 @@ splitFile = split (startsWith "[Room")
 
 --creates a Room from a string
 parseRooms :: String -> Room
-parseRooms r = (createRoom (splitRoom r))
+parseRooms r = pRoom r (createRoom (splitRoom r))
 
 --split rooms into strings of description and each path
 splitRoom :: String -> [String]
@@ -117,12 +117,20 @@ splitRoom = split (startsWith "[Path-to")
 
 --creates a Room from a list of Room element strings
 createRoom :: [String] -> Room
-createRoom p =  (1,(head p),(parsePaths (tail p)))
+createRoom p =  (parsePaths (tail p))
 
 --take list of strings and extract a list of Paths
 parsePaths :: [String] -> [Path]
 parsePaths [] = []
 parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
+
+--Gets string of room and path list, and append them to make Room
+pRoom :: String -> [Path] ->Room
+pRoom x p= (getPathNum x, getDescRoom x, p)
+
+--Gets description of the room.
+getDescRoom :: String -> String
+getDescRoom d= last (wordsBy (==']') (head( wordsBy (=='[') d)))
 
 --extracts description string from path string
 getDesc :: String -> String
