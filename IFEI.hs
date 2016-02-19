@@ -58,7 +58,7 @@ getCommand x= case x of
    "exit" ->  comExit
    "restart" -> comRestart
    "start" -> comStart
-   _ -> comInvalid
+   _ -> comPaths x
 --processCommand
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
@@ -186,6 +186,13 @@ comStart = do
     putStrLn "Let's start the game"
     game
 
+--Function that sees if input is valid and if it goes to one of the paths
+--Not done. Don't know how to access Gamedata
+comPaths ::String -> IO ()
+comPaths s= do
+putStrLn s
+game
+        
 --Function that handles invalid command.
 comInvalid :: IO()
 comInvalid = do 
