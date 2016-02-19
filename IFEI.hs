@@ -66,7 +66,7 @@ game = do
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
 --Path ID == Room ID == Destination Room
---processCommand :: String -> [Path] -> ???
+--processCommand :: String -> [Path] -> IO()
 
 -----------------------------------------------------------------------
 -- Functional Aspects
