@@ -47,21 +47,18 @@ game = do
 
     --map toLower command will take the command and make it all lower-case.
     --commands are not case sensitive.
-    --TODO: Make a function that will handle all possible commands given from paths.
-    if (map toLower command) == "exit"
-        then do
-            putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
-            command <- getLine
-            if (map toLower command) == "exit"
-                then putStrLn "Goodbye."
-                else do
-                    putStrLn "Cancelled."
-                    game
-        else do
-            putStrLn "Invalid command."
-            game
+    --Make a function that will handle all possible commands given from paths.
+    getCommand (map toLower command)
+    game
             
 
+--Function that handles all possible commands given.
+getCommand :: String -> IO()
+getCommand x= case x of
+   "exit" ->  comExit
+   "restart" -> comRestart
+   "start" -> comStart
+   _ -> comInvalid
 --processCommand
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
@@ -171,3 +168,42 @@ createRooms (c:cs)
 --Temporary: (Text Data,[Commands]) -> Printed Room
 printRoom :: (String,[String]) -> String
 printRoom (x,y) = unlines [x] ++ unwords y
+
+
+
+--Command functions
+--Function that handles start command.
+comStart :: IO()
+comStart = do 
+    putStrLn "Let's start the game"
+    game
+
+--Function that handles invalid command.
+comInvalid :: IO()
+comInvalid = do 
+    putStrLn "Invalid command. Try again"
+    game
+
+--Function that handles exit command.
+comExit :: IO()
+comExit = do 
+    putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
+    com <- getLine
+    if (map toLower com) == "exit"
+        then do 
+            putStrLn "Goodbye."
+            exitSuccess 
+    else do
+        putStrLn "Cancelled."
+        game 
+
+--Function that handles restart command. NOT DONE.
+comRestart :: IO()
+comRestart = do 
+    putStrLn "Are you sure you want to restart the game? Type 'restart' again to restart."
+    com <- getLine
+    if (map toLower com) == "restart"
+        then do putStrLn "Restarting..."
+    else do
+        putStrLn "Cancelled."
+        game
