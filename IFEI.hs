@@ -47,21 +47,18 @@ game = do
 
     --map toLower command will take the command and make it all lower-case.
     --commands are not case sensitive.
-    --TODO: Make a function that will handle all possible commands given from paths.
-    if (map toLower command) == "exit"
-        then do
-            putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
-            command <- getLine
-            if (map toLower command) == "exit"
-                then putStrLn "Goodbye."
-                else do
-                    putStrLn "Cancelled."
-                    game
-        else do
-            putStrLn "Invalid command."
-            game
+    --Make a function that will handle all possible commands given from paths.
+    getCommand (map toLower command)
+    game
             
 
+--Function that handles all possible commands given.
+getCommand :: String -> IO()
+getCommand x= case x of
+   "exit" ->  comExit
+   "restart" -> comRestart
+   "start" -> comStart
+   _ -> comPaths x
 --processCommand
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
@@ -112,7 +109,7 @@ splitFile = split (startsWith "[Room")
 
 --creates a Room from a string
 parseRooms :: String -> Room
-parseRooms r = (createRoom (splitRoom r))
+parseRooms r = pRoom r (createRoom (splitRoom r))
 
 --split rooms into strings of description and each path
 splitRoom :: String -> [String]
@@ -120,12 +117,20 @@ splitRoom = split (startsWith "[Path-to")
 
 --creates a Room from a list of Room element strings
 createRoom :: [String] -> Room
-createRoom p =  (1,(head p),(parsePaths (tail p)))
+createRoom p =  (parsePaths (tail p))
 
 --take list of strings and extract a list of Paths
 parsePaths :: [String] -> [Path]
 parsePaths [] = []
 parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
+
+--Gets string of room and path list, and append them to make Room
+pRoom :: String -> [Path] ->Room
+pRoom x p= (getPathNum x, getDescRoom x, p)
+
+--Gets description of the room.
+getDescRoom :: String -> String
+getDescRoom d= last (wordsBy (==']') (head( wordsBy (=='[') d)))
 
 --extracts description string from path string
 getDesc :: String -> String
@@ -171,3 +176,49 @@ createRooms (c:cs)
 --Temporary: (Text Data,[Commands]) -> Printed Room
 printRoom :: (String,[String]) -> String
 printRoom (x,y) = unlines [x] ++ unwords y
+
+
+
+--Command functions
+--Function that handles start command.
+comStart :: IO()
+comStart = do 
+    putStrLn "Let's start the game"
+    game
+
+--Function that sees if input is valid and if it goes to one of the paths
+--Not done. Don't know how to access Gamedata
+comPaths ::String -> IO ()
+comPaths s= do
+putStrLn s
+game
+        
+--Function that handles invalid command.
+comInvalid :: IO()
+comInvalid = do 
+    putStrLn "Invalid command. Try again"
+    game
+
+--Function that handles exit command.
+comExit :: IO()
+comExit = do 
+    putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
+    com <- getLine
+    if (map toLower com) == "exit"
+        then do 
+            putStrLn "Goodbye."
+            exitSuccess 
+    else do
+        putStrLn "Cancelled."
+        game 
+
+--Function that handles restart command. NOT DONE.
+comRestart :: IO()
+comRestart = do 
+    putStrLn "Are you sure you want to restart the game? Type 'restart' again to restart."
+    com <- getLine
+    if (map toLower com) == "restart"
+        then do putStrLn "Restarting..."
+    else do
+        putStrLn "Cancelled."
+        game
