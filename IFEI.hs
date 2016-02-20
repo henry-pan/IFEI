@@ -47,41 +47,88 @@ game = do
 
     --map toLower command will take the command and make it all lower-case.
     --commands are not case sensitive.
-    --Make a function that will handle all possible commands given from paths.
-    getCommand (map toLower command)
+    --We need to pass in a Room as an parameter to processCommand.
+    processCommand (map toLower command) --Room
     game
             
 
 --Function that handles all possible commands given.
-getCommand :: String -> IO()
-getCommand x= case x of
-   "exit" ->  comExit
-   "restart" -> comRestart
-   "start" -> comStart
-   _ -> comPaths x
---processCommand
+processCommand :: String -> IO()
+processCommand x = case x of
+   "exit" ->  processExit
+   "restart" -> processRestart
+   --"repeat" -> processRepeat
+   --"help" -> processHelp
+   _ -> processPaths x
+   
+   
+--Function that handles exit command.
+processExit :: IO()
+processExit = do 
+    putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
+    com <- getLine
+    if (map toLower com) == "exit"
+        then do 
+            putStrLn "Goodbye."
+            exitSuccess 
+    else do
+        putStrLn "Cancelled."
+        game 
+
+        
+--Function that handles restart command. NOT DONE.
+--This function should just transfer the player to Room 1, as every game begins in Room 1.
+processRestart :: IO()
+processRestart = do 
+    putStrLn "Are you sure you want to restart the game? Type 'restart' again to restart."
+    com <- getLine
+    if (map toLower com) == "restart"
+        then do 
+            putStrLn "\n================="
+            putStrLn "| Restarting... |"
+            putStrLn "=================\n"
+    else do
+        putStrLn "Cancelled."
+        game
+
+        
+--processRepeat - Displays the contents of the room again.
+--Useful if for some reason the player floods the terminal with junk and needs to see the room again.
+--INCOMPLETE. Needs to take in Room to show Room text.
+--processRepeat :: IO()
+
+
+--processHelp - Displays every possible command, including reserved commands.
+--INCOMPLETE. Needs to take in Paths to show path commands.
+processHelp :: IO()
+processHelp = do
+    putStrLn "\n================"
+    putStrLn "| Command List |"
+    putStrLn "================"
+    putStrLn "Help\nRepeat\nRestart\nExit"
+    game
+
+
+--processPaths
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
+--If there are no matches, call processInvalid.
 --Path ID == Room ID == Destination Room
---processCommand :: String -> [Path] -> IO()
+--processPaths :: String -> [Path] -> IO()
+----INCOMPLETE. Don't know how to access Gamedata
+processPaths :: String -> IO ()
+processPaths s = do
+    putStrLn s
+    game
 
+--Function that handles invalid command.
+processInvalid :: IO()
+processInvalid = do 
+    putStrLn "Invalid command."
+    game
 -----------------------------------------------------------------------
 -- Functional Aspects
 -----------------------------------------------------------------------
---Int: Room ID. Identifies the room.
---String: Text data associated with the room.
---[Path]: The list of paths that can be taken from the room.
---data Room = Room Int String [Path]
-
---Int: Room ID. This is the room the path will lead to.
---String: The command that invokes the path.
---data Path = Path Int String
-
--- Creates a type synonym for gamedata 
-type Gamedata = [Room]
-type Room = (Int,String,[Path])
-type Path = (Int, String)
-
 {-|
 We might want to create some sort of data structure to hold all the
 room and path data. List of Tuples?
@@ -95,54 +142,84 @@ We will need to implement some sort of exception handling in case
 the user decides to number rooms out of order.
 
 -}
---startsWith, from Data.List.Split
---https://hackage.haskell.org/package/split-0.1.1/docs/Data-List-Split.html
---Take the input file and turn it into a list of Strings (incomplete Rooms).
---Technically could be condensed into one line in the I/O section, but kept separate for clarity.
 
+--Int: Room ID. Identifies the room.
+--String: Text data associated with the room.
+--[Path]: The list of paths that can be taken from the room.
+--data Room = Room Int String [Path]
+
+--Int: Room ID. This is the room the path will lead to.
+--String: The command that invokes the path.
+--data Path = Path Int String
+
+-- Create type synonyms
+type Gamedata = [Room]
+type Room = (Int, String, [Path])
+type Path = (Int, String)
+
+
+--Take the input file and turn it into a list of Strings (incomplete Rooms).
 createGamedata :: String -> Gamedata
 createGamedata cont = (map parseRooms (splitFile cont))
 
+
 --split file into Rooms (each a string)
+--Technically could be condensed into one line in the I/O section, but kept separate for clarity.
 splitFile :: String -> [String]
 splitFile = split (startsWith "[Room")
+
 
 --creates a Room from a string
 parseRooms :: String -> Room
 parseRooms r = pRoom r (createRoom (splitRoom r))
 
+
 --split rooms into strings of description and each path
 splitRoom :: String -> [String]
 splitRoom = split (startsWith "[Path-to")
 
+
 --creates a Room from a list of Room element strings
 createRoom :: [String] -> Room
 createRoom p =  (parsePaths (tail p))
+
 
 --take list of strings and extract a list of Paths
 parsePaths :: [String] -> [Path]
 parsePaths [] = []
 parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
 
+
 --Gets string of room and path list, and append them to make Room
 pRoom :: String -> [Path] ->Room
-pRoom x p= (getPathNum x, getDescRoom x, p)
+pRoom x p = (getPathNum x, getDescRoom x, p)
+
 
 --Gets description of the room.
 getDescRoom :: String -> String
-getDescRoom d= last (wordsBy (==']') (head( wordsBy (=='[') d)))
+getDescRoom d = last (wordsBy (==']') (head( wordsBy (=='[') d)))
+
 
 --extracts description string from path string
 getDesc :: String -> String
 getDesc d = tail (last (splitPath d))
 
+
 --extracts path number from path string
 getPathNum :: String -> Int
 getPathNum n = digitToInt (last (head (splitPath n)))
 
+
 --splits Path up into 2 strings
 splitPath :: String -> [String]
 splitPath = wordsBy (== ']')
+
+
+
+
+-----------------------------------------------------------------------
+-- Temporary / WIP Code
+-----------------------------------------------------------------------
 
 --Helper function.
 --May or may not be needed.
@@ -176,49 +253,3 @@ createRooms (c:cs)
 --Temporary: (Text Data,[Commands]) -> Printed Room
 printRoom :: (String,[String]) -> String
 printRoom (x,y) = unlines [x] ++ unwords y
-
-
-
---Command functions
---Function that handles start command.
-comStart :: IO()
-comStart = do 
-    putStrLn "Let's start the game"
-    game
-
---Function that sees if input is valid and if it goes to one of the paths
---Not done. Don't know how to access Gamedata
-comPaths ::String -> IO ()
-comPaths s= do
-putStrLn s
-game
-        
---Function that handles invalid command.
-comInvalid :: IO()
-comInvalid = do 
-    putStrLn "Invalid command. Try again"
-    game
-
---Function that handles exit command.
-comExit :: IO()
-comExit = do 
-    putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
-    com <- getLine
-    if (map toLower com) == "exit"
-        then do 
-            putStrLn "Goodbye."
-            exitSuccess 
-    else do
-        putStrLn "Cancelled."
-        game 
-
---Function that handles restart command. NOT DONE.
-comRestart :: IO()
-comRestart = do 
-    putStrLn "Are you sure you want to restart the game? Type 'restart' again to restart."
-    com <- getLine
-    if (map toLower com) == "restart"
-        then do putStrLn "Restarting..."
-    else do
-        putStrLn "Cancelled."
-        game
