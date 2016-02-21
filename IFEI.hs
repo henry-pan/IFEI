@@ -6,6 +6,7 @@ import System.Directory
 import Data.Char
 import Data.List.Split
 import Data.Bool
+import System.Exit
 
 -----------------------------------------------------------------------
 -- I/O Aspects
