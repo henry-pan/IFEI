@@ -30,6 +30,9 @@ main = do
             
             
             putStrLn $ unwords $ splitFile contents
+            let gData = createGamedata contents
+            --prints description and options for the first room.
+            putStrLn (roomDesc (firstRoom gData))
             --let fileLines = lines contents
             --putStrLn $ createRooms fileLines
             game
@@ -181,7 +184,7 @@ splitRoom = split (startsWith "[Path-to")
 
 
 --creates a Room from a list of Room element strings
-createRoom :: [String] -> Room
+createRoom :: [String] -> [Path]
 createRoom p =  (parsePaths (tail p))
 
 
@@ -215,8 +218,18 @@ getPathNum n = digitToInt (last (head (splitPath n)))
 splitPath :: String -> [String]
 splitPath = wordsBy (== ']')
 
+--Returns room of gamedata
+firstRoom :: Gamedata -> Room
+firstRoom a = head a 
 
+--Gets room description given a room.
+roomDesc :: Room-> String
+roomDesc (i,s,p)= s++ printPDesc p
 
+--Helper function that returns description of given path.
+printPDesc :: [Path] -> String
+printPDesc []= ""
+printPDesc (p:ps)= snd p ++ "\n" ++ printPDesc ps
 
 -----------------------------------------------------------------------
 -- Temporary / WIP Code
