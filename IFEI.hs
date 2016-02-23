@@ -62,7 +62,7 @@ processCommand x = case x of
    "exit" ->  processExit
    "restart" -> processRestart
    --"repeat" -> processRepeat
-   --"help" -> processHelp
+   "help" -> processHelp
    _ -> processPaths x
    
    
@@ -218,18 +218,20 @@ getPathNum n = digitToInt (last (head (splitPath n)))
 splitPath :: String -> [String]
 splitPath = wordsBy (== ']')
 
+
+
 --Returns room of gamedata
 firstRoom :: Gamedata -> Room
-firstRoom a = head a 
+firstRoom a = head a
 
 --Gets room description given a room.
 roomDesc :: Room-> String
-roomDesc (i,s,p)= s++ printPDesc p
+roomDesc (i,s,p) = s ++ printPDesc p
 
 --Helper function that returns description of given path.
 printPDesc :: [Path] -> String
-printPDesc []= ""
-printPDesc (p:ps)= snd p ++ "\n" ++ printPDesc ps
+printPDesc [] = ""
+printPDesc (p:ps) = snd p ++ "\n" ++ printPDesc ps
 
 -----------------------------------------------------------------------
 -- Temporary / WIP Code
