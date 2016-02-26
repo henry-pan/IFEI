@@ -22,20 +22,16 @@ main = do
             handle <- openFile (name ++ ".txt") ReadMode
             contents <- hGetContents handle
             
-            
             --Fancy ASCII display.
             putStrLn $ "\n==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
             putStrLn $ "| " ++ name ++ " loaded. |"
             putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "==\n"
             
-            
-            putStrLn $ unwords $ splitFile contents
+            --putStrLn $ unwords $ splitFile contents
             let gData = createGamedata contents
             --prints description and options for the first room.
-            putStrLn (roomDesc (firstRoom gData))
-            --let fileLines = lines contents
-            --putStrLn $ createRooms fileLines
-            game
+            putStrLn (roomDesc (head gData))
+            game gData (head gData) 
             hClose handle
         else do
             --Fancy ASCII display.
@@ -46,73 +42,77 @@ main = do
         
         
 --Command handling. For now, it will only accept Exit.       
-game = do
+game :: Gamedata -> Room -> IO()
+game gd r = do
     command <- getLine
 
     --map toLower command will take the command and make it all lower-case.
     --commands are not case sensitive.
     --We need to pass in a Room as an parameter to processCommand.
-    processCommand (map toLower command) --Room
-    game
+    processCommand gd r (map toLower command)
+    game gd r
             
 
 --Function that handles all possible commands given.
-processCommand :: String -> IO()
-processCommand x = case x of
-   "exit" ->  processExit
-   "restart" -> processRestart
-   --"repeat" -> processRepeat
-   "help" -> processHelp
-   _ -> processPaths x
+processCommand :: Gamedata -> Room -> String -> IO()
+processCommand gd r x = case x of
+   "exit" ->  processExit gd r
+   "restart" -> processRestart gd r
+   "repeat" -> processRepeat gd r
+   "help" -> processHelp gd r
+   _ -> processPaths gd r x
    
    
 --Function that handles exit command.
-processExit :: IO()
-processExit = do 
-    putStrLn "Are you sure you want to exit the game? Type 'exit' again to quit."
+processExit :: Gamedata -> Room -> IO()
+processExit gd r = do 
+    putStrLn "\n>>Are you sure you want to exit the game? Type 'exit' again to quit."
     com <- getLine
     if (map toLower com) == "exit"
         then do 
-            putStrLn "Goodbye."
-            exitSuccess 
+            putStrLn ">>Goodbye."
+            exitSuccess
     else do
-        putStrLn "Cancelled."
-        game 
+        putStrLn ">>Cancelled."
+        game gd r
 
         
---Function that handles restart command. NOT DONE.
+--Function that handles restart command.
 --This function should just transfer the player to Room 1, as every game begins in Room 1.
-processRestart :: IO()
-processRestart = do 
-    putStrLn "Are you sure you want to restart the game? Type 'restart' again to restart."
+processRestart :: Gamedata -> Room -> IO()
+processRestart gd r = do 
+    putStrLn "\n>>Are you sure you want to restart the game? Type 'restart' again to restart."
     com <- getLine
     if (map toLower com) == "restart"
         then do 
             putStrLn "\n================="
             putStrLn "| Restarting... |"
             putStrLn "=================\n"
-            putStrLn (roomDesc (firstRoom gData))
-            game
+            putStrLn (roomDesc (head gd))
+            game gd r
     else do
-        putStrLn "Cancelled."
-        game
+        putStrLn ">>Cancelled."
+        game gd r
 
-        
+
 --processRepeat - Displays the contents of the room again.
 --Useful if for some reason the player floods the terminal with junk and needs to see the room again.
 --INCOMPLETE. Needs to take in Room to show Room text.
---processRepeat :: IO()
+processRepeat :: Gamedata -> Room -> IO()
+processRepeat gd r = do
+    putStrLn $ roomDesc r
+    game gd r
 
 
 --processHelp - Displays every possible command, including reserved commands.
 --INCOMPLETE. Needs to take in Paths to show path commands.
-processHelp :: IO()
-processHelp = do
+processHelp :: Gamedata -> Room -> IO()
+processHelp gd r = do
     putStrLn "\n================"
     putStrLn "| Command List |"
     putStrLn "================"
-    putStrLn "Help\nRepeat\nRestart\nExit"
-    game
+    putStrLn "Help\nRepeat\nRestart\nExit\n"
+    game gd r
 
 
 --processPaths
@@ -122,16 +122,17 @@ processHelp = do
 --Path ID == Room ID == Destination Room
 --processPaths :: String -> [Path] -> IO()
 ----INCOMPLETE. Don't know how to access Gamedata
-processPaths :: String -> IO ()
-processPaths s = do
+processPaths :: Gamedata -> Room -> String -> IO()
+processPaths gd r s = do
     putStrLn s
-    game
+    game gd r
+
 
 --Function that handles invalid command.
-processInvalid :: IO()
-processInvalid = do 
-    putStrLn "Invalid command."
-    game
+processInvalid :: Gamedata -> Room -> IO()
+processInvalid gd r = do 
+    putStrLn ">>Invalid command."
+    game gd r
 -----------------------------------------------------------------------
 -- Functional Aspects
 -----------------------------------------------------------------------
@@ -221,53 +222,18 @@ splitPath :: String -> [String]
 splitPath = wordsBy (== ']')
 
 
-
---Returns room of gamedata
-firstRoom :: Gamedata -> Room
-firstRoom a = head a
-
 --Gets room description given a room.
-roomDesc :: Room-> String
-roomDesc (i,s,p) = s ++ printPDesc p
+roomDesc :: Room -> String
+roomDesc (i, s, p) = s ++ printPDesc p
+
 
 --Helper function that returns description of given path.
 printPDesc :: [Path] -> String
 printPDesc [] = ""
-printPDesc (p:ps) = snd p ++ "\n" ++ printPDesc ps
+printPDesc (p:ps) = "- " ++ snd p ++ printPDesc ps
 
 -----------------------------------------------------------------------
 -- Temporary / WIP Code
 -----------------------------------------------------------------------
 
---Helper function.
---May or may not be needed.
---Gets first word from string line.
-getFirstWord :: String -> String
-getFirstWord [] = ""
-getFirstWord x = head (words x)
 
-
-
---createRooms :: [String] -> [(Room,[Path])]
---Take divided file and turn it into gameData
---Old code. Please edit this.
-createRooms :: [String] -> String
-createRooms [] = ""
-createRooms (c:cs)
-    | x == "[Room" = printRoom (c,cs)
-    | x == "[Path" = "Insert command function here"
-    where x = getFirstWord c
-
-
-
---Helper function to printRoom.
---Takes paths and turns them into a string to display alongside the room text.
---printPath :: [Path] -> String
-
-
-
---Prints a room and its associated commands.
---printRoom :: (Room,[Path]) -> String
---Temporary: (Text Data,[Commands]) -> Printed Room
-printRoom :: (String,[String]) -> String
-printRoom (x,y) = unlines [x] ++ unwords y
