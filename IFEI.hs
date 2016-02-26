@@ -91,6 +91,8 @@ processRestart = do
             putStrLn "\n================="
             putStrLn "| Restarting... |"
             putStrLn "=================\n"
+            putStrLn (roomDesc (firstRoom gData))
+            game
     else do
         putStrLn "Cancelled."
         game
