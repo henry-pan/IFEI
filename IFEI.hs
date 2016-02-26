@@ -39,8 +39,8 @@ main = do
             putStrLn "| The file does not exist. |"
             putStrLn "============================\n"
             main
-        
-        
+
+
 --Command handling. For now, it will only accept Exit.       
 game :: Gamedata -> Room -> IO()
 game gd r = do
@@ -51,7 +51,7 @@ game gd r = do
     --We need to pass in a Room as an parameter to processCommand.
     processCommand gd r (map toLower command)
     game gd r
-            
+
 
 --Function that handles all possible commands given.
 processCommand :: Gamedata -> Room -> String -> IO()
@@ -61,8 +61,8 @@ processCommand gd r x = case x of
    "repeat" -> processRepeat gd r
    "help" -> processHelp gd r
    _ -> processPaths gd r x
-   
-   
+
+
 --Function that handles exit command.
 processExit :: Gamedata -> Room -> IO()
 processExit gd r = do 
@@ -89,7 +89,7 @@ processRestart gd r = do
             putStrLn "| Restarting... |"
             putStrLn "=================\n"
             putStrLn (roomDesc (head gd))
-            game gd r
+            game gd (head gd)
     else do
         putStrLn ">>Cancelled."
         game gd r
@@ -119,13 +119,15 @@ processHelp gd r = do
 --Take input command and check paths for commmand
 --If input and a path match, take that path.
 --If there are no matches, call processInvalid.
---Path ID == Room ID == Destination Room
---processPaths :: String -> [Path] -> IO()
-----INCOMPLETE. Don't know how to access Gamedata
 processPaths :: Gamedata -> Room -> String -> IO()
 processPaths gd r s = do
-    putStrLn s
-    game gd r
+    let roomNum = pathToRoom (trd r) s
+    if roomNum == -1
+        then do
+            processInvalid gd r
+    else do
+        putStrLn $ roomDesc (gd !! (roomNum - 1))
+        game gd (gd !! (roomNum - 1))
 
 
 --Function that handles invalid command.
@@ -232,6 +234,31 @@ printPDesc :: [Path] -> String
 printPDesc [] = ""
 printPDesc (p:ps) = "- " ++ snd p ++ printPDesc ps
 
+
+--Grab third element in tuple
+trd :: (a,b,c) -> c
+trd (_,_,z) = z        
+
+
+--Given a list of Paths and a String, find the path that is invoked by
+--the string and return the destination room.
+pathToRoom :: [Path] -> String -> Int
+pathToRoom [] s = -1 --invalid command
+pathToRoom (x:xs) s
+    | pathText == commandText = fst x
+    | otherwise = pathToRoom xs s
+    where pathText = map toLower (filter (/= '\n') (snd x))
+          commandText = map toLower s
+
+
+--For debugging
+dumpData :: Gamedata -> String
+dumpData [] = ""
+dumpData (x:xs) = "[" ++ show (fst3 x) ++ show (snd3 x) ++ show (trd x) ++ "]\n"++ dumpData xs
+fst3 :: (a,b,c) -> a
+snd3 :: (a,b,c) -> b     
+fst3 (a,_,_) = a
+snd3 (_,b,_) = b
 -----------------------------------------------------------------------
 -- Temporary / WIP Code
 -----------------------------------------------------------------------
