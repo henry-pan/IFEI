@@ -3,10 +3,10 @@
 -----------------------------------------------------------------------
 import System.IO
 import System.Directory
+import System.Exit
 import Data.Char
 import Data.List.Split
 import Data.Bool
-import System.Exit
 
 -----------------------------------------------------------------------
 -- I/O Aspects
@@ -14,7 +14,7 @@ import System.Exit
 --Reads from a text file.
 --fileLines is a list of the lines in text file. 
 main = do
-    putStrLn "Please load a game by typing in the name of the game file, without the file extension: "
+    putStrLn ">>> Please load a game by typing in the name of the game file, without the file extension: "
     name <- getLine
     validFile <- doesFileExist (name ++ ".txt")
     if validFile
@@ -25,7 +25,7 @@ main = do
             --Fancy ASCII display.
             putStrLn $ "\n==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
             putStrLn $ "| " ++ name ++ " loaded. |"
-            putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "==\n"
+            putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
             
             --putStrLn $ unwords $ splitFile contents
             let gData = createGamedata contents
@@ -44,13 +44,17 @@ main = do
 --Command handling. For now, it will only accept Exit.       
 game :: Gamedata -> Room -> IO()
 game gd r = do
-    command <- getLine
-
+    if trd r == []
+        then do
+            putStrLn ">>> The game's over!"
+            command <- getLine
+            processCommand gd r (map toLower command)
+    else do
+        command <- getLine
     --map toLower command will take the command and make it all lower-case.
     --commands are not case sensitive.
     --We need to pass in a Room as an parameter to processCommand.
-    processCommand gd r (map toLower command)
-    game gd r
+        processCommand gd r (map toLower command)
 
 
 --Function that handles all possible commands given.
@@ -66,14 +70,14 @@ processCommand gd r x = case x of
 --Function that handles exit command.
 processExit :: Gamedata -> Room -> IO()
 processExit gd r = do 
-    putStrLn "\n>>Are you sure you want to exit the game? Type 'exit' again to quit."
+    putStrLn "\n>>> Are you sure you want to exit the game? Type 'exit' again to quit."
     com <- getLine
     if (map toLower com) == "exit"
         then do 
-            putStrLn ">>Goodbye."
+            putStrLn "\n>>> Goodbye."
             exitSuccess
     else do
-        putStrLn ">>Cancelled."
+        putStrLn "\n>>> Cancelled."
         game gd r
 
         
@@ -81,17 +85,17 @@ processExit gd r = do
 --This function should just transfer the player to Room 1, as every game begins in Room 1.
 processRestart :: Gamedata -> Room -> IO()
 processRestart gd r = do 
-    putStrLn "\n>>Are you sure you want to restart the game? Type 'restart' again to restart."
+    putStrLn "\n>> Are you sure you want to restart the game? Type 'restart' again to restart."
     com <- getLine
     if (map toLower com) == "restart"
         then do 
             putStrLn "\n================="
             putStrLn "| Restarting... |"
-            putStrLn "=================\n"
+            putStrLn "================="
             putStrLn (roomDesc (head gd))
             game gd (head gd)
     else do
-        putStrLn ">>Cancelled."
+        putStrLn "\n>>> Cancelled."
         game gd r
 
 
@@ -105,14 +109,17 @@ processRepeat gd r = do
 
 
 --processHelp - Displays every possible command, including reserved commands.
---INCOMPLETE. Needs to take in Paths to show path commands.
 processHelp :: Gamedata -> Room -> IO()
 processHelp gd r = do
     putStrLn "\n================"
     putStrLn "| Command List |"
     putStrLn "================"
-    putStrLn "Help\nRepeat\nRestart\nExit\n"
-    game gd r
+    putStrLn "Help\nRepeat\nRestart\nExit"
+    if trd r == []
+        then game gd r
+    else do
+        putStrLn $ printPDesc2 (trd r)
+        game gd r
 
 
 --processPaths
@@ -133,35 +140,19 @@ processPaths gd r s = do
 --Function that handles invalid command.
 processInvalid :: Gamedata -> Room -> IO()
 processInvalid gd r = do 
-    putStrLn ">>Invalid command."
+    putStrLn "\n>>> Invalid command."
     game gd r
 -----------------------------------------------------------------------
 -- Functional Aspects
 -----------------------------------------------------------------------
-{-|
-We might want to create some sort of data structure to hold all the
-room and path data. List of Tuples?
-So the end result would be something like but dynamically generated:
-
-gameData = [(Room0,[Paths0]) , (Room1,[Paths1]), (Room2,[Paths2]),...]
-
-
-If we do this, we can easily grab a room using list indices.
-We will need to implement some sort of exception handling in case
-the user decides to number rooms out of order.
-
--}
-
+--Room
 --Int: Room ID. Identifies the room.
 --String: Text data associated with the room.
 --[Path]: The list of paths that can be taken from the room.
---data Room = Room Int String [Path]
 
+--Path
 --Int: Room ID. This is the room the path will lead to.
 --String: The command that invokes the path.
---data Path = Path Int String
-
--- Create type synonyms
 type Gamedata = [Room]
 type Room = (Int, String, [Path])
 type Path = (Int, String)
@@ -200,7 +191,7 @@ parsePaths (p:ps) = ((getPathNum p),(getDesc p)):(parsePaths ps)
 
 
 --Gets string of room and path list, and append them to make Room
-pRoom :: String -> [Path] ->Room
+pRoom :: String -> [Path] -> Room
 pRoom x p = (getPathNum x, getDescRoom x, p)
 
 
@@ -211,7 +202,7 @@ getDescRoom d = last (wordsBy (==']') (head( wordsBy (=='[') d)))
 
 --extracts description string from path string
 getDesc :: String -> String
-getDesc d = tail (last (splitPath d))
+getDesc d = (filter (/= '\n') (tail (last (splitPath d)))) ++ "\n"
 
 
 --extracts path number from path string
@@ -233,6 +224,10 @@ roomDesc (i, s, p) = s ++ printPDesc p
 printPDesc :: [Path] -> String
 printPDesc [] = ""
 printPDesc (p:ps) = "- " ++ snd p ++ printPDesc ps
+--Without the dash, for processHelp.
+printPDesc2 :: [Path] -> String
+printPDesc2 [] = ""
+printPDesc2 (p:ps) = snd p ++ printPDesc2 ps
 
 
 --Grab third element in tuple
