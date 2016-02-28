@@ -1,0 +1,16 @@
+[Room 1]
+
+[Path-to 2]
+[Path-to 3]
+
+
+[Room 2]
+
+[Path-to 4]
+[Path-to 5]
+
+
+[Room 3]
+
+[Path-to 5]
+[Path-to 6]
