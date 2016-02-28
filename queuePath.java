@@ -18,7 +18,10 @@ class queuePath{
             t=destination;
         }
         public void display(){
-            System.out.println(p);
+            System.out.println("- " + p);
+        }
+        public void display2(){
+        	System.out.println(p);
         } 
         public String pathDesc(){
         	return p;
@@ -39,6 +42,10 @@ class queuePath{
 	public void remove(int pos){
         array[pos].display();
     }
+    
+    public void remove2(int pos){
+    	array[pos].display2();
+    }
 	
 	//will return destination room, or 0 if command not found.
 	public int command(int pos, String com){
@@ -53,4 +60,5 @@ class queuePath{
 		}
 		return result;
 	}
+
 }
