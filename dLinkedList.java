@@ -80,7 +80,7 @@ public class dLinkedList {
     public void goToDest(int pos){
         node n=current;
         if(pos== 0){
-            System.out.println("Invalid command. Try again.");
+            System.out.println("\n>>> Invalid command.");
         }else{
         	node temp=first;
             while(temp!=null){
@@ -107,22 +107,35 @@ public class dLinkedList {
     public void displayStart(){
         node p=first;
         current=first;
+        System.out.print("\n");
         for(int i=0;i<p.counter;i++){
         	System.out.println(p.roomDesc[i]);
         }
         for(int i=0;i<p.optc;i++){
             p.pathQ.remove(i);
         } 
+        System.out.print("\n");
     }
     
     //Displays description of current room and its options that the user can take.
     public void display(){
         node n=current;
+        System.out.print("\n");
         for(int i=0;i<n.counter;i++){
         	System.out.println(n.roomDesc[i]);
         }
         for(int i=0;i<n.optc;i++){
             n.pathQ.remove(i);
         }
+        System.out.print("\n");
     }
+    
+    //Displays options of current room without dash.
+    public void displayOpts(){
+    	node n=current;
+    	for(int i=0;i<n.optc;i++){
+            n.pathQ.remove2(i);
+        }
+    }
+    
 }
