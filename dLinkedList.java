@@ -15,7 +15,7 @@ public class dLinkedList {
         public node(){
             pathQ=new queuePath();
             optc=0;
-            roomDesc=new String[10]; // The description can't be more than 10 lines.
+            roomDesc=new String[100]; // The description can't be more than 10 lines.
         }
     }
     
