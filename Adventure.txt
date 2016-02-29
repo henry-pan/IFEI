@@ -48,3 +48,39 @@ In the center is a large statue of a goddess worshipped by the villagers.
 [Path-to 5] Check open stores
 [Path-to 6] Examine statue
 [Path-to 7] Leave village
+
+[Room 5]
+You step inside an antique store. 
+And you see that the store is filled with weapons, such as different types of swords and shields.
+You don’t have enough coins to buy the sword you know will greatly help you win. 
+The king is only going to reward you after you slay the dragon.
+[Path-to 8] Try to bribe the vendor
+[Path-to 9] Go back to town square
+
+[Room 6]
+You take a closer look at the statue, and you find that it resembles a woman you loved ages ago. You remember how the deadly dragon, Bushkin, ate her while you were away working, and how you decided to become a knight, and destroy every dragon you encountered. You find yourself with a new found vengeance, and you have never been more ready to slay a dragon in your life.
+[Path-to 7] Leave village
+
+[Room 7]
+You set forth on your journey. After hours of traveling, you find a small village.
+[Path-to 10] Find a place to sleep
+[Path-to 11] Keep going
+
+[Room 8]
+YOU: Sir, good Sir. I’m about to slay the most dangerous dragon to step foot in this land, and I’m going to need your best sword to accomplish that. 
+
+VENDOR: It’s going to cost you 50 gold coins.
+
+YOU:Sir, I don’t think you understand. I’m about to slay the deadliest dragon, Trumpkin. If I fail, it will come here and destroy this village as we know it.
+
+VENDOR: Oh my. You are a very brave knight! Unfortunately, I can’t just give you the sword you want, but I can give you this apple to hold you over on your journey.
+
+You begrudgingly accept the apple.
+
+[Path-to 9] Leave the store
+
+[Room 9]
+You are back at town square.
+[Path-to 5] Check open stores
+[Path-to 6] Examine statue
+[Path-to 7] Leave village
