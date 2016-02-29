@@ -1,16 +1,50 @@
 [Room 1]
+Your eyes open as the sound of the rooster's cry echoes through the sky.
+It's morning.
+Feeling well rested, you grab your stuff and leave the bedroom.
 
-[Path-to 2]
-[Path-to 3]
+INNKEEPER: Good morning, sir. Today's the big day, right?
+           I heard the king hired you to vanquish some foul beast.
+           A dragon, was it?
+           Those are quite fearsome... and dangerous!
+
+YOU: Is that so?
+[Path-to 2] Arrogant response
+[Path-to 3] Humble response
 
 
 [Room 2]
+YOU: I kill dragons in my spare time.
+     Getting a bit of gold from it is just a bonus.
 
-[Path-to 4]
-[Path-to 5]
+That was a lie.
+The truth is, you were only recently knighted; the king sent you to kill a dragon as your first duty.
+
+INNKEEPER: Your spare time?! You knights are incredible!
+
+YOU: That's right.
+[Path-to 4] Leave the inn
 
 
 [Room 3]
+YOU: Indeed. This will be my first task as a knight.
 
-[Path-to 5]
-[Path-to 6]
+INNKEEPER: Your first task? Against a dragon?!
+           Well, don't die out there! That's bad for business!
+
+YOU: My king sent me on this task; I do not plan on failing him.
+[Path-to 4] Leave the inn
+
+
+[Room 4]
+YOU: It is time for me to depart.
+
+INNKEEPER: Farewell!
+
+You step outside and retrieve your horse.
+You are in the town square.
+From here, you can see various stores along the perimeter of the square.
+In the center is a large statue of a goddess worshipped by the villagers.
+[Path-to 5] Check open stores
+[Path-to 6] Examine statue
+[Path-to 7] Leave village
