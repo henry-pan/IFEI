@@ -124,3 +124,15 @@ You set forth on your journey.
 After hours of traveling, you find a small village.
 [Path-to 14] Visit the village
 [Path-to 15] Keep going
+
+
+[Room 13]
+End of demonstration.
+
+
+[Room 14]
+End of demonstration.
+
+
+[Room 15]
+End of demonstration.
