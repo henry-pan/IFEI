@@ -122,17 +122,109 @@ You find yourself with a newfound vengeance, never more ready to slay a dragon i
 [Room 12]
 You set forth on your journey.
 After hours of traveling, you find a small village.
-[Path-to 14] Visit the village
-[Path-to 15] Keep going
+[Path-to 15] Visit the village
+[Path-to 16] Keep going
 
 
 [Room 13]
-End of demonstration.
+You are leisurely riding your horse through the village, when you suddenly spot an elderly man sitting in front of an ancient looking hut.
+[Path-to 17] Talk to him
+[Path-to 14] Leave village
 
 
 [Room 14]
-End of demonstration.
+You keep going until you realize how exhausted you are.
+You try looking for a place to rest for the night, but when you look around, the only thing you see is trees.
+[Path-to 18] Sleep on a tree branch
+[Path-to 19] Keep going
 
 
 [Room 15]
-End of demonstration.
+You are leisurely riding your horse through the village, when you suddenly spot an elderly man sitting in front of an ancient looking hut.
+[Path-to 20] Talk to him
+[Path-to 16] Leave village
+
+
+[Room 16]
+You keep going until you realize how exhausted you are.
+You try looking for a place to rest for the night, but when you look around, the only thing you see is trees.
+[Path-to 18] Sleep on a tree branch
+[Path-to 19] Keep going
+
+
+[Room 17]
+You approach the elderly man.
+YOU: Hello Sir. I was wondering if you knew where I could find the dragon, Trumpkin. 
+I am on my way to slay him.
+
+ELDERLY MAN: Ah yeah. That old thing. Last I heard it was supposed to get here in about a day’s time. 
+I too am on my way to slay him.
+
+YOU: Sir I don’t think that a man in your state is capable of slaying the most horrendous dragon of these lands.
+
+ELDERLY MAN: I may not be as strong as you young knight, but I have a lot of tricks up my sleeves. Now, you must be tired from your journey. Would you like a place to sleep for the night?
+[Path-to 21] Yes that would be amazing Sir
+[Path-to 19] No, thank you
+
+   
+[Room 18]
+You are sleeping comfortably in a tree branch, when all of the sudden you hear a crack. The tree branch couldn’t hold your weight, and you plummet to the ground.
+You are too injured to slay the dragon.
+You admit defeat, and start on your ride back home.
+GAME OVER (Press restart to try again) 
+
+
+[Room 19]
+You march on! Who needs sleep? Not you. Except that after some time your eyes start to close…
+And next thing you know, you are on the floor, and your horse in nowhere to be found.
+The horse must have seen a wild snake, and you didn’t react fast enough, and you fell and hit your head.
+There is no way in which you can slay the dragon with a head concussion, and no horse.
+You admit defeat, and start walking back home.
+GAME OVER (Press restart to try again)   
+
+
+[Room 20]
+You approach the elderly man.
+YOU: Hello Sir. I was wondering if you knew where I could find the dragon, Trumpkin. 
+I am on my way to slay him.
+
+ELDERLY MAN: Ah yeah. That old thing. Last I heard it was supposed to get here in about a day’s time. 
+I too am on my way to slay him.
+
+YOU: Sir I don’t think that a man in your state is capable of slaying the most horrendous dragon of these lands.
+
+ELDERLY MAN: I may not be as strong as you young knight, but I have a lot of tricks up my sleeves. Now, you must be tired from your journey. Would you like a place to sleep for the night?
+[Path-to 22] Yes that would be amazing Sir
+[Path-to 19] No, thank you
+
+
+[Room 21]
+You wake up to find all of your stuff gone.
+You look for the elderly man from the night before.
+You can’t find him anywhere.
+Without your armor, sword, and horse you are unable to continue on your journey.
+GAME OVER (Press restart to try again)
+
+
+[Room 22]
+Your stomach wakes you up in the middle of the night.
+You remember you have that apple from the vendor, and so you get out of your makeshift bed.
+You then realize that the elderly man is trying to put your armor on.
+
+YOU: Sir, what are you doing?
+
+ELDERLY MAN: You were right. I have a better chance of winning if I have better equipment.
+
+YOU: Sir. I’m not going to let you slay that dragon by yourself.
+
+ELDERLY MAN: I never said you couldn’t join me. The dragon is supposed to pass by this village in less than an hour.
+
+After you both get ready, you set forth to slay the dragon.
+When you finally see it in front of you, you remember the woman you loved, and with that thought in mind you reach for your sword and you start to try to stab him.
+In your peripheral vision, you see the elderly man with 20 more people, all with their own weapons. 
+After hours of fighting, Trumpkin tumbles and falls down, and the elderly man takes your sword and cuts Trumpkin’s neck off.
+YOU: Sir thank you for your help. By the way, I never got your name.
+
+ELDERLY MAN: It’s Sir Bernard.
+
+Congratulations. You defeated the dragon. 
