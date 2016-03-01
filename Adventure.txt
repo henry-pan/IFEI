@@ -108,8 +108,8 @@ You are back at town square.
 
 [Room 10]
 You are back at town square.
-[Path-to 6] Examine statue
-[Path-to 7] Leave village
+[Path-to 11] Examine statue
+[Path-to 12] Leave village
 
 
 [Room 11]
