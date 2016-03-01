@@ -183,7 +183,7 @@ GAME OVER (Type restart to try again)
 
 
 [Room 19]
-You march on! Who needs sleep? Not you. Except that after some time your eyes start to close…
+You march on! Who needs sleep? Not you. Except that after some time your eyes start to close...
 Next thing you know, you are on the ground, and your horse is nowhere to be found.
 The horse must have seen a wild snake, and you didn’t react fast enough, and you fell and hit your head.
 There is no way in which you can slay the dragon with a head concussion, and no horse.
@@ -251,6 +251,6 @@ The elderly man swiftly removes Trumpkin's head from its body.
 YOU: Sir, thank you for your help.
      By the way, I never got your name.
 
-ELDERLY MAN: It’s Sir Bernard.
+ELDERLY MAN: It's Sir Bernard.
 
 Congratulations. You defeated the dragon. 
