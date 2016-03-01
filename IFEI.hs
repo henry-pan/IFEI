@@ -207,7 +207,7 @@ getDesc d = (filter (/= '\n') (tail (last (splitPath d)))) ++ "\n"
 
 --extracts path number from path string
 getPathNum :: String -> Int
-getPathNum n = digitToInt (last (head (splitPath n)))
+getPathNum n = read (last (wordsBy (==' ') (head (splitPath n))))
 
 
 --splits Path up into 2 strings
