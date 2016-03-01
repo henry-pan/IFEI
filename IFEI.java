@@ -38,13 +38,21 @@ class IFEI{
             int path=0;
             //Makes new room.
             if (line.startsWith("[Room")){
-            	room = Character.getNumericValue((line.substring(6)).charAt(0));
+            	if(line.substring(7).charAt(0) !=']'){
+            		room = Integer.parseInt(""+line.substring(6).charAt(0) +line.substring(7).charAt(0));
+            	}else{
+            		room = Character.getNumericValue((line.substring(6)).charAt(0));
+            	}
             	insideRoom.insert();
             	insideRoom.insertRoom(room);
             }
             //Gets paths from room (int destination, string option).
             else if (line.startsWith("[Path-to")){
-            	path = Character.getNumericValue((line.substring(9)).charAt(0));
+            	if(line.substring(10).charAt(0) !=']'){
+            		path = Integer.parseInt(""+line.substring(9).charAt(0) +line.substring(10).charAt(0));
+            	}else{
+            		path = Character.getNumericValue((line.substring(9)).charAt(0));
+            	}
             	insideRoom.optionDesc(line.substring(line.lastIndexOf("]") + 2));
             	insideRoom.insertPath(path);
             }
