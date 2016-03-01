@@ -78,16 +78,16 @@ After hours of traveling, you find a small village.
 
 [Room 8]
 YOU: Hello, sir!
-     I’m about to slay the most dangerous dragon to step foot in this land.
+     I'm about to slay the most dangerous dragon to step foot in this land.
      I will need your best sword to accomplish that.
      
 You point at the sword you were eyeing.
 
 VENDOR: Ah, yes. That's a nice sword, isn't it?
-        It’s going to cost you 50 gold coins.
+        It's going to cost you 50 gold coins.
 
-YOU: Sir, I don’t think you understand.
-     I’m about to slay the deadliest dragon, Trumpkin.
+YOU: Sir, I don't think you understand.
+     I'm about to slay the deadliest dragon, Trumpkin.
      If I fail, it will come here and destroy this village as we know it.
 
 VENDOR: Really now? Dragons don't usually come this far inland.
