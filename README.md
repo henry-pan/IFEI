@@ -3,7 +3,7 @@
 ###Authors: Steven Mazliach, Kavya Rammohan, Henry Pan, Thais Aoki. 
 Interactive Fiction (Text Adventure) game engine and interpreter, implemented in both Haskell and Java.
 
-With IFEI, users can create, share, and play their own interactive fiction (Text Adventure) games!
+With IFEI, users can create, share, and play their own interactive fiction (Text Adventure) games without needing any sort of programming or game creation skills!
 
 ##Creating your own text adventure game
 Making your own games on IFEI is easy!
