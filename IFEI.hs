@@ -88,7 +88,8 @@ processEject gd r = do
     putStrLn "\n>>> Are you sure you want to eject the game? Type 'eject' again to quit."
     com <- getLine
     if (map toLower com) == "eject"
-        then do 
+        then do
+            putStrLn "\n"
             main
     else do
         putStrLn "\n>>> Cancelled."
