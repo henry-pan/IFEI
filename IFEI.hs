@@ -41,7 +41,7 @@ main = do
             main
 
 
---Command handling. For now, it will only accept Exit.       
+--Command handling.    
 game :: Gamedata -> Room -> IO()
 game gd r = do
     if trd r == []
@@ -61,6 +61,7 @@ game gd r = do
 processCommand :: Gamedata -> Room -> String -> IO()
 processCommand gd r x = case x of
    "exit" ->  processExit gd r
+   "eject" -> processEject gd r
    "restart" -> processRestart gd r
    "repeat" -> processRepeat gd r
    "help" -> processHelp gd r
@@ -70,7 +71,7 @@ processCommand gd r x = case x of
 --Function that handles exit command.
 processExit :: Gamedata -> Room -> IO()
 processExit gd r = do 
-    putStrLn "\n>>> Are you sure you want to exit the game? Type 'exit' again to quit."
+    putStrLn "\n>>> Are you sure you want to exit IFEI? Type 'exit' again to quit."
     com <- getLine
     if (map toLower com) == "exit"
         then do 
@@ -80,7 +81,20 @@ processExit gd r = do
         putStrLn "\n>>> Cancelled."
         game gd r
 
-        
+
+--Function that handles eject command.
+processEject :: Gamedata -> Room -> IO()
+processEject gd r = do
+    putStrLn "\n>>> Are you sure you want to eject the game? Type 'eject' again to quit."
+    com <- getLine
+    if (map toLower com) == "eject"
+        then do 
+            main
+    else do
+        putStrLn "\n>>> Cancelled."
+        game gd r
+
+
 --Function that handles restart command.
 --This function should just transfer the player to Room 1, as every game begins in Room 1.
 processRestart :: Gamedata -> Room -> IO()
@@ -114,7 +128,7 @@ processHelp gd r = do
     putStrLn "\n================"
     putStrLn "| Command List |"
     putStrLn "================"
-    putStrLn "Help\nRepeat\nRestart\nExit"
+    putStrLn "Help\nRepeat\nRestart\nEject\nExit"
     if trd r == []
         then game gd r
     else do
