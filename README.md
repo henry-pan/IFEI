@@ -32,6 +32,6 @@ Command | Function
 --- | ---
 `help` | Displays the list of available commands.
 `repeat` | Shows the text of the current room.
-`restart` | Restart the game. Requires double-entry.
-`eject` | Eject currently loaded game to load another one. Requires double-entry.
-`exit` | Quit the game and IFEI. Requires double-entry.
+`restart` | Restart the game. **Requires double-entry.**
+`eject` | Eject currently loaded game to load another one. **Requires double-entry.**
+`exit` | Quit the game and IFEI. **Requires double-entry.**
