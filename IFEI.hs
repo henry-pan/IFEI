@@ -18,37 +18,33 @@ main = do
     name <- getLine
     validFile <- doesFileExist (name ++ ".txt")
     if validFile
-        then do
-            handle <- openFile (name ++ ".txt") ReadMode
-            contents <- hGetContents handle
-            
-            --Fancy ASCII display.
-            putStrLn $ "\n==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
-            putStrLn $ "| " ++ name ++ " loaded. |"
-            putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
-            
-            --putStrLn $ unwords $ splitFile contents
-            let gData = createGamedata contents
-            --prints description and options for the first room.
-            putStrLn (roomDesc (head gData))
-            game gData (head gData) 
-            hClose handle
-        else do
-            --Fancy ASCII display.
-            putStrLn "\n============================"
-            putStrLn "| The file does not exist. |"
-            putStrLn "============================\n"
-            main
+    then do
+        handle <- openFile (name ++ ".txt") ReadMode
+        contents <- hGetContents handle
+
+        putStrLn $ "\n==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
+        putStrLn $ "| " ++ name ++ " loaded. |"
+        putStrLn $ "==" ++ (replicate (length (name ++ " loaded.")) '=') ++ "=="
+
+        let gData = createGamedata contents
+        putStrLn (roomDesc (head gData))
+        game gData (head gData) 
+        hClose handle
+    else do
+        putStrLn "\n============================"
+        putStrLn "| The file does not exist. |"
+        putStrLn "============================\n"
+        main
 
 
 --Command handling.    
 game :: Gamedata -> Room -> IO()
 game gd r = do
     if trd r == []
-        then do
-            putStrLn ">>> The game's over!"
-            command <- getLine
-            processCommand gd r (map toLower command)
+    then do
+        putStrLn ">>> The game's over!"
+        command <- getLine
+        processCommand gd r (map toLower command)
     else do
         command <- getLine
     --map toLower command will take the command and make it all lower-case.
@@ -60,12 +56,15 @@ game gd r = do
 --Function that handles all possible commands given.
 processCommand :: Gamedata -> Room -> String -> IO()
 processCommand gd r x = case x of
-   "exit" ->  processExit gd r
-   "eject" -> processEject gd r
-   "restart" -> processRestart gd r
-   "repeat" -> processRepeat gd r
-   "help" -> processHelp gd r
-   _ -> processPaths gd r x
+    "exit!" -> ifeiExit
+    "exit" ->  processExit gd r
+    "eject!" -> ifeiEject
+    "eject" -> processEject gd r
+    "restart!" -> ifeiRestart gd
+    "restart" -> processRestart gd r
+    "repeat" -> processRepeat gd r
+    "help" -> processHelp gd r
+    _ -> processPaths gd r x
 
 
 --Function that handles exit command.
@@ -73,13 +72,16 @@ processExit :: Gamedata -> Room -> IO()
 processExit gd r = do 
     putStrLn "\n>>> Are you sure you want to exit IFEI? Type 'exit' again to quit."
     com <- getLine
-    if (map toLower com) == "exit"
-        then do 
-            putStrLn "\n>>> Goodbye."
-            exitSuccess
+    if (map toLower com) == "exit" || (map toLower com) == "exit!"
+    then ifeiExit
     else do
         putStrLn "\n>>> Cancelled."
         game gd r
+
+ifeiExit :: IO()
+ifeiExit = do
+    putStrLn "\n>>> Goodbye."
+    exitSuccess
 
 
 --Function that handles eject command.
@@ -87,14 +89,16 @@ processEject :: Gamedata -> Room -> IO()
 processEject gd r = do
     putStrLn "\n>>> Are you sure you want to eject the game? Type 'eject' again to quit."
     com <- getLine
-    if (map toLower com) == "eject"
-        then do
-            putStrLn "\n"
-            main
+    if (map toLower com) == "eject" || (map toLower com) == "eject!"
+    then ifeiEject
     else do
         putStrLn "\n>>> Cancelled."
         game gd r
 
+ifeiEject :: IO()
+ifeiEject = do
+    putStrLn "\n"
+    main
 
 --Function that handles restart command.
 --This function should just transfer the player to Room 1, as every game begins in Room 1.
@@ -102,21 +106,23 @@ processRestart :: Gamedata -> Room -> IO()
 processRestart gd r = do 
     putStrLn "\n>> Are you sure you want to restart the game? Type 'restart' again to restart."
     com <- getLine
-    if (map toLower com) == "restart"
-        then do 
-            putStrLn "\n================="
-            putStrLn "| Restarting... |"
-            putStrLn "================="
-            putStrLn (roomDesc (head gd))
-            game gd (head gd)
+    if (map toLower com) == "restart" || (map toLower com) == "restart!"
+    then ifeiRestart gd
     else do
         putStrLn "\n>>> Cancelled."
         game gd r
 
+ifeiRestart :: Gamedata -> IO()
+ifeiRestart gd = do
+    putStrLn "\n================="
+    putStrLn "| Restarting... |"
+    putStrLn "================="
+    putStrLn (roomDesc (head gd))
+    game gd (head gd)
 
+    
 --processRepeat - Displays the contents of the room again.
 --Useful if for some reason the player floods the terminal with junk and needs to see the room again.
---INCOMPLETE. Needs to take in Room to show Room text.
 processRepeat :: Gamedata -> Room -> IO()
 processRepeat gd r = do
     putStrLn $ roomDesc r
@@ -131,22 +137,21 @@ processHelp gd r = do
     putStrLn "================"
     putStrLn "Help\nRepeat\nRestart\nEject\nExit"
     if trd r == []
-        then game gd r
+    then game gd r
     else do
         putStrLn $ printPDesc2 (trd r)
         game gd r
 
 
 --processPaths
---Take input command and check paths for commmand
+--Take input command and check paths for command
 --If input and a path match, take that path.
 --If there are no matches, call processInvalid.
 processPaths :: Gamedata -> Room -> String -> IO()
 processPaths gd r s = do
     let roomNum = pathToRoom (trd r) s
     if roomNum == -1
-        then do
-            processInvalid gd r
+    then processInvalid gd r
     else do
         putStrLn $ roomDesc (gd !! (roomNum - 1))
         game gd (gd !! (roomNum - 1))
@@ -270,7 +275,5 @@ snd3 :: (a,b,c) -> b
 fst3 (a,_,_) = a
 snd3 (_,b,_) = b
 -----------------------------------------------------------------------
--- Temporary / WIP Code
+-- End of file
 -----------------------------------------------------------------------
-
-
