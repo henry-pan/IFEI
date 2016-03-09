@@ -98,7 +98,7 @@ public class dLinkedList {
         }
     }
     
-    //sees if command is invalid, and if it is, then calls goToDest on that room.
+    //sees if command is valid, and if it is, then calls goToDest on that room.
     public void dest(String com){
     	node p=current;
     	int d=p.pathQ.command(p.room,com);
