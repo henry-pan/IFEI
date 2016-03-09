@@ -5,6 +5,7 @@ import static java.lang.System.*;
 public class dLinkedList {
 
     private class node {
+    	boolean save;
         int room;
         int counter=0;
         node prev;
@@ -13,12 +14,13 @@ public class dLinkedList {
         private String[] roomDesc;
         int optc;
         public node(){
+        	save = false;
             pathQ=new queuePath();
             optc=0;
-            roomDesc=new String[100]; // The description can't be more than 10 lines.
+            roomDesc=new String[50]; // The description can't be more than 50 lines.
         }
     }
-    
+    private boolean bookmark= false;
     private node first = null;
     private node current = null;
     private node last = null;
@@ -103,6 +105,57 @@ public class dLinkedList {
     	goToDest(d);
     }
     
+    //Adds bookmark to current room.
+    public void save(){
+    	if(bookmark==false){
+    		node p=current;
+    		p.save=true;
+    		bookmark=true;
+    		System.out.println("\nSaved!");
+    		display();
+    	}else{
+    		System.out.println("You already have a saved room.");
+    		System.out.println("To save this one instead type eject then save"); 
+    	}
+    }
+    
+    //Goes to room that you have saved.
+    public void load(){
+    	node temp=first;
+        while(temp!=null){
+            if(temp.save==true){
+            	current= temp;
+            	System.out.println("\n================");
+                System.out.println("|  Loading...  |");
+                System.out.println("================");
+                break;
+            }
+            temp=temp.next;
+        }
+        if(temp ==null){
+        	System.out.println("\nYou haven't saved your game yet");
+        }
+        display();
+    }
+    
+    //Unloads the game so you can load another one
+    public void eject(){
+    	node temp=first;
+        while(temp!=null){
+            if(temp.save==true){
+            	temp.save=false;
+            	bookmark=false;
+                break;
+            }
+            temp=temp.next;
+        }
+        if(temp ==null){
+        	System.out.println("\nThere is no game saved");
+        }else{
+        	System.out.println("Ejected!");
+        }
+    }
+    
     //Displays first room and its content: Description and Options.
     public void displayStart(){
         node p=first;
@@ -137,5 +190,4 @@ public class dLinkedList {
             n.pathQ.remove2(i);
         }
     }
-    
 }
