@@ -8,6 +8,7 @@ import static java.lang.System.*;
 class IFEI{
 
     public static void main (String[] args) throws IOException{
+    	
     	//Reads from a text file
     	System.out.println(">>> Please load a game by typing in the name of the game file, without the file extension: ");
     	Scanner stdin = new Scanner (in);
@@ -79,18 +80,22 @@ class IFEI{
                 	}else{
                 		System.out.println("\n>>> Cancelled.");
                 	}
+                }else if(command.equals("exit!")){
+                	readFile =false;
+                	System.out.println("\n>>> Goodbye.");
+                	break;
                 }
                 //Displays every possible command, including reserved commands.
                 else if (command.equals("help")){
                 	System.out.println("\n================");
                 	System.out.println("| Command List |");
                 	System.out.println("================");
-                	System.out.println("Help\nRepeat\nRestart\nExit");
+                	System.out.println("Help\nRepeat\nLoad\nSave\nEject\nRestart\nExit");
                 	insideRoom.displayOpts();
                 }
                 //Displays the first room of the game.
                 else if(command.equals("restart")){
-                	System.out.println("\n>>> Are you sure you want to restart the game? Type 'restart' again to quit.");
+                	System.out.println("\n>>> Are you sure you want to restart the game? Type 'restart' again to restart.");
                 	if(((stdin.nextLine()).toLowerCase()).equals("restart")){
                 		System.out.println("\n================");
                 		System.out.println("| Restarting...|");
@@ -100,8 +105,39 @@ class IFEI{
                 		System.out.println("\n>>> Cancelled.");
                 	}
                 }
+                else if(command.equals("restart!")){
+                	System.out.println("\n================");
+                	System.out.println("| Restarting...|");
+                	System.out.println("================");
+                	insideRoom.displayStart();
+                }
                 //Displays the contents of the current room again.
                 else if(command.equals("repeat")){
+                	insideRoom.display();
+                }
+                //Saves the current room, so you can load it at any point during the game.
+                else if(command.equals("save")){
+                	insideRoom.save();
+                }
+                //Loads saved room. Takes player to said room.
+                else if(command.equals("load")){
+                	insideRoom.load();
+                }
+                //Unloads saved room.
+                else if(command.equals("eject")){
+                	System.out.println("\n>>> Are you sure you want to eject the game? Type 'eject' again to eject game.");
+                	if(((stdin.nextLine()).toLowerCase()).equals("eject")){
+                		System.out.println("\n================");
+                		System.out.println("|  Ejecting... |");
+                		System.out.println("================");
+                		insideRoom.eject();
+                		insideRoom.display();
+                	}else{
+                		System.out.println("\n>>> Cancelled.");
+                	}
+                }
+                else if(command.equals("eject!")){
+                	insideRoom.eject();
                 	insideRoom.display();
                 }
                 //Checks if command is valid. And if it is, it goes to room destination.
