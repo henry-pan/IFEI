@@ -21,7 +21,7 @@ For your text adventure game to run correctly on IFEI, it must follow these rule
 - Paths must be indicated with a Path tag `[Path-to ID]`, where `ID` is the room that the path leads to.
 - Paths must lead to a Room that exists.
 - Path text must be distinct; one path cannot be identical to another path in the same room.
-- Path text cannot contain only these reserved keywords: `exit`, `exit!`, `eject`, `eject!`, `restart`, `restart!`, `repeat`, `help`.
+- Path text cannot contain only these reserved keywords: `exit`, `exit!`, `save`, `load`, `load!`, `eject`, `eject!`, `restart`, `restart!`, `repeat`, `help`.
 
 ##Playing a text adventure game
 To play a text adventure game, place a game file in the same directory as IFEI. Open IFEI and follow the on-screen instructions. You will be asked to load the game, which you can do by just typing the name of the game. To take a "path", type in the path name (indicated with a `-`) word for word. If you are ever unsure about commands, you may type `help` and IFEI will display a list of commands that can be typed.
@@ -31,6 +31,8 @@ Commands requiring double-entry can be forced without confirmation using an `!` 
 Command | Function
 --- | ---
 `help` | Displays the list of available commands.
+`save` | Saves a bookmark, allowing you to return to that room in that session.
+`load` | Loads the save. **Requires double-entry.**
 `repeat` | Shows the text of the current room.
 `restart` | Restart the game. **Requires double-entry.**
 `eject` | Eject currently loaded game to load another one. **Requires double-entry.**
