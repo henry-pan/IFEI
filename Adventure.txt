@@ -54,7 +54,7 @@ In the center is a large statue of a goddess worshipped by the villagers.
 You step inside an armory. 
 Swords, maces, lances, shields, helmets, and other shiny equipment line the shelves and walls.
 A sleek steel sword catches your eye, but its price quickly makes you avert your gaze.
-Unfortunately, you don’t have enough coins to buy anything in here.
+Unfortunately, you don't have enough coins to buy anything in here.
 The king is only going to reward you after you have slain the dragon.
 That sword is still in your mind though...
 [Path-to 8] Persuade vendor
