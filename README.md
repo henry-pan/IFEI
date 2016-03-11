@@ -31,9 +31,9 @@ Commands requiring double-entry can be forced without confirmation using an `!` 
 Command | Function
 --- | ---
 `help` | Displays the list of available commands.
+`repeat` | Shows the text of the current room.
 `save` | Saves a bookmark, allowing you to return to that room in that session.
 `load` | Loads the save. **Requires double-entry.**
-`repeat` | Shows the text of the current room.
 `restart` | Restart the game. **Requires double-entry.**
 `eject` | Eject currently loaded game to load another one. **Requires double-entry.**
 `exit` | Quit the game and IFEI. **Requires double-entry.**
