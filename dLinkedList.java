@@ -17,7 +17,7 @@ public class dLinkedList {
         	save = false;
             pathQ=new queuePath();
             optc=0;
-            roomDesc=new String[50]; // The description can't be more than 50 lines.
+            roomDesc=new String[100]; // The description can't be more than 100 lines.
         }
     }
     private boolean bookmark= false;
@@ -92,7 +92,7 @@ public class dLinkedList {
                 temp=temp.next;
             }
             if(temp==null){
-                System.out.println("The path you want does not match any path from file");
+                System.out.println("\n>>> The path you want does not match any path from file");
             }        
         	current=temp;
         }
@@ -111,11 +111,11 @@ public class dLinkedList {
     		node p=current;
     		p.save=true;
     		bookmark=true;
-    		System.out.println("\nSaved!");
+    		System.out.println("\n>>> Your progress has been saved. Type 'load' to return to this state at any time.");
     		display();
     	}else{
-    		System.out.println("You already have a saved room.");
-    		System.out.println("To save this one instead type eject then save"); 
+    		System.out.println("\n>>>You already have a saved room.");
+    		System.out.println("\n>>>To save this one instead type eject then save"); 
     	}
     }
     
@@ -125,15 +125,15 @@ public class dLinkedList {
         while(temp!=null){
             if(temp.save==true){
             	current= temp;
-            	System.out.println("\n================");
-                System.out.println("|  Loading...  |");
-                System.out.println("================");
+            	System.out.println("\n===================");
+                System.out.println("| Loading save... |");
+                System.out.println("===================");
                 break;
             }
             temp=temp.next;
         }
         if(temp ==null){
-        	System.out.println("\nYou haven't saved your game yet");
+        	System.out.println("\n>>>You haven't saved your game yet");
         }
         display();
     }
@@ -150,9 +150,9 @@ public class dLinkedList {
             temp=temp.next;
         }
         if(temp ==null){
-        	System.out.println("\nThere is no game saved");
+        	System.out.println("\n>>There is no game saved");
         }else{
-        	System.out.println("Ejected!");
+        	System.out.println("\n");
         }
     }
     
@@ -190,4 +190,5 @@ public class dLinkedList {
             n.pathQ.remove2(i);
         }
     }
+    
 }
