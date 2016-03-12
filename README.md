@@ -24,7 +24,8 @@ For your text adventure game to run correctly on IFEI, it must follow these rule
 - Path text cannot contain only these reserved keywords: `exit`, `exit!`, `save`, `load`, `load!`, `eject`, `eject!`, `restart`, `restart!`, `repeat`, `help`.
 
 ##Playing a text adventure game
-To play a text adventure game, place a game file in the same directory as IFEI. Open IFEI and follow the on-screen instructions. You will be asked to load the game, which you can do by just typing the name of the game. To take a "path", type in the path name (indicated with a `-`) word for word. If you are ever unsure about commands, you may type `help` and IFEI will display a list of commands that can be typed.
+To play a text adventure game, place a game file in the same directory as IFEI. Open IFEI. For the Haskell version, you must load the .hs file in ghci and type main. Follow the on-screen instructions. You will be asked to load the game, which you can do by just typing the name of the game. To take a "path", type in the path name (indicated with a `-`) word for word. If you are ever unsure about commands, you may type `help` and IFEI will display a list of commands that can be typed.
+
 ###System Commands
 Commands requiring double-entry can be forced without confirmation using an `!` at the end, like `exit!`.
 
