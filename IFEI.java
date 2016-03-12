@@ -27,6 +27,7 @@ class IFEI{
     		System.out.println("| " +file + " loaded  |");
     		System.out.println("=" + eq.substring(0,(file + " loaded  |").length()) + "=");
     	}
+    	
     	FileReader readingFile= null;
         readingFile= new FileReader(fi);
         BufferedReader br = (new BufferedReader(readingFile));
@@ -74,7 +75,7 @@ class IFEI{
                 if (command.equals("exit")){
                 	readFile =false;
                 	System.out.println("\n>>> Are you sure you want to exit the game? Type 'exit' again to quit.");
-                	if(((stdin.nextLine()).toLowerCase()).equals("exit")){
+                	if(((stdin.nextLine()).toLowerCase()).equals("exit")|| ((stdin.nextLine()).toLowerCase()).equals("exit!")){
                 		System.out.println("\n>>> Goodbye.");
                 		break;
                 	}else{
@@ -90,13 +91,13 @@ class IFEI{
                 	System.out.println("\n================");
                 	System.out.println("| Command List |");
                 	System.out.println("================");
-                	System.out.println("Help\nRepeat\nLoad\nSave\nEject\nRestart\nExit");
+                	System.out.println("Help\nSave\nLoad\nRepeat\nRestart\nEject\nExit");
                 	insideRoom.displayOpts();
                 }
                 //Displays the first room of the game.
                 else if(command.equals("restart")){
                 	System.out.println("\n>>> Are you sure you want to restart the game? Type 'restart' again to restart.");
-                	if(((stdin.nextLine()).toLowerCase()).equals("restart")){
+                	if(((stdin.nextLine()).toLowerCase()).equals("restart") || ((stdin.nextLine()).toLowerCase()).equals("restart!")){
                 		System.out.println("\n================");
                 		System.out.println("| Restarting...|");
                 		System.out.println("================");
@@ -121,12 +122,20 @@ class IFEI{
                 }
                 //Loads saved room. Takes player to said room.
                 else if(command.equals("load")){
+                	System.out.println("\n>>> Load from bookmark? Type 'load' again to load.");
+                	if(((stdin.nextLine()).toLowerCase()).equals("load") || ((stdin.nextLine()).toLowerCase()).equals("load!")){
+                		insideRoom.load();
+                	}else{
+                		System.out.println("\n>>> Cancelled.");
+                	}
+                }
+                else if(command.equals("load!")){
                 	insideRoom.load();
                 }
                 //Unloads saved room.
                 else if(command.equals("eject")){
                 	System.out.println("\n>>> Are you sure you want to eject the game? Type 'eject' again to eject game.");
-                	if(((stdin.nextLine()).toLowerCase()).equals("eject")){
+                	if(((stdin.nextLine()).toLowerCase()).equals("eject")||((stdin.nextLine()).toLowerCase()).equals("eject!")){
                 		System.out.println("\n================");
                 		System.out.println("|  Ejecting... |");
                 		System.out.println("================");
