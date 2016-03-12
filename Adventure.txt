@@ -175,7 +175,7 @@ You are sleeping comfortably in a tree branch, when all of the sudden you hear a
 The sudden noise forces your eyes wide open.
 You see the fattest squirrel you have ever seen in your life in front of you, on your branch.
 *SNAP*
-The tree branch couldn’t hold both you and the squirrel, and you plummet to the ground, possibly breaking some bones.
+The tree branch couldn't hold both you and the squirrel, and you plummet to the ground, possibly breaking some bones.
 You see the squirrel scurry off without a care in the world.
 You are too injured to slay the dragon.
 You admit defeat, and start on your ride back home.
@@ -185,7 +185,7 @@ GAME OVER (Type restart to try again)
 [Room 19]
 You march on! Who needs sleep? Not you. Except that after some time your eyes start to close...
 Next thing you know, you are on the ground, and your horse is nowhere to be found.
-The horse must have seen a wild snake, and you didn’t react fast enough, and you fell and hit your head.
+The horse must have seen a wild snake, and you didn't react fast enough, and you fell and hit your head.
 There is no way in which you can slay the dragon with a head concussion, and no horse.
 You admit defeat, and start walking back home.
 GAME OVER (Type restart to try again)   
@@ -212,7 +212,7 @@ ELDERLY MAN: I may not be as strong as you, young knight, but I have many tricks
 [Room 21]
 You wake up to find all of your equipment gone.
 You look for the elderly man from the night before.
-You can’t find him anywhere.
+You can't find him anywhere.
 Without your armor, sword, and horse, you are unable to continue on your journey.
 GAME OVER (Type restart to try again)
 
